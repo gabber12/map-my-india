@@ -8,6 +8,13 @@ use PHPUnit\Framework\TestCase;
 
 class TestClient extends TestCase
 {
+    protected $geoCoder;
+
+    public function setUp()
+    {
+        $this->geoCode = new GeoCoder("2vktgjh45o1nc3qxt7atmpblt3s86r7k");
+    }
+
     public function testClientInstantiation()
     {
         $client = new Client();
@@ -23,10 +30,16 @@ class TestClient extends TestCase
     }
     public function testGeoCoderSuccess()
     {
-        $geoCode = new GeoCoder("2vktgjh45o1nc3qxt7atmpblt3s86r7k");
-        $res = $geoCode->geoCode("saket");
+        $res = $this->geoCode->geoCode("saket");
         $this->assertNotEmpty($res->getResults());
+        $this->assertNotEmpty($res->getVersion());
     }
 
-    
+    public function testRevGeoCoderSuccess()
+    {
+        
+        $res = $this->geoCode->rgeoCode("26.5645", "85.9914");
+        $this->assertNotEmpty($res->getResults());
+        $this->assertNotEmpty($res->getVersion());
+    }
 }

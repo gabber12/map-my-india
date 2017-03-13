@@ -20,6 +20,11 @@ class MMIResponse
         return $this->results;
     }
 
+    public function getVersion() : string
+    {
+        return $this->version;
+    }
+
     public function isSuccess() : boolean
     {
         return $this->responseCode === 200;
